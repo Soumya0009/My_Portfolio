@@ -1,0 +1,106 @@
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 60vw;
+    margin: 20px auto;
+    background-color: #eefcff;
+    color: rgb(0, 2, 142);
+    box-shadow: 0 4px 8px rgba(0, 176, 255, 0.2);
+    max-height: 50vh;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.image-cap {
+    margin-left: 10px;
+    width: 55%;
+    height: auto;
+    display: block;
+    transition: all 0.3s ease;
+    object-fit: cover;
+    max-height: 100%;
+    border-radius: 8px;
+}
+
+.card-content {
+    padding: 20px;
+    overflow: hidden;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.expanded {
+    width: 80vw;
+    max-height: none;
+    box-shadow: 0 6px 16px rgba(0, 176, 255, 0.4);
+    flex-direction: row;
+}
+
+.expanded .image-cap {
+    max-height: none;
+    width: 55%;
+    border-radius: 8px 0 0 8px;
+}
+
+.expanded .card-content {
+    width: 45%;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .card, .expanded {
+        width: 80vw; /* Increase the card width for medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .card, .expanded {
+        flex-direction: column; /* Stack content vertically on smaller screens */
+        width: 90vw; /* Increase width for small screens */
+        max-height: none; /* Allow the card to expand naturally */
+        padding: 10px;
+    }
+
+    .image-cap {
+        width: 100%; /* Image takes full width */
+        height: auto;
+        border-radius: 8px 8px 0 0; /* Adjust corners for stacked layout */
+        /* padding: 10px; */
+    }
+
+    .expanded .card-content {
+         width: 100%; /* Content takes full width */
+        padding: 15px;  /* Reduce padding for smaller screens */
+    }
+     .card-content {
+        width: 100%; /* Content takes full width */
+        padding: 15px; /* Reduce padding for smaller screens */
+    }
+
+}
+
+@media (max-width: 480px) {
+    .card, .expanded {
+        width: 95vw; /* Almost full screen width on very small devices */
+        margin: 10px auto; /* Reduce margin for smaller devices */
+        padding: 10px;
+    }
+
+    .expanded .card-content {
+         width: 100%; /* Content takes full width */
+        padding: 15px;  /* Further reduce padding for small devices */
+        
+    }
+    .card-content {
+        padding: 10px; /* Further reduce padding for small devices */
+    }
+
+}
+
+

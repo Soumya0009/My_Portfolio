@@ -1,0 +1,7 @@
+.app {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%; /* Ensure parent container is 100% of viewport */
+  padding: 20px;
+}
