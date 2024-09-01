@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./CSS/BlogCard.css";
+import "../CSS/BlogCard.css";
 
 const BlogCard = ({ id, image, title, intro }) => {
   const navigate = useNavigate();

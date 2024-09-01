@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Navbar(props) {
   const linkStyle = {
@@ -11,8 +11,15 @@ function Navbar(props) {
     textUnderlineOffset: "5px",
   };
 
+  // Get the current location
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith('/admin');
+
+  // If on admin route, prepend /admin to all the links
+  const basePath = isAdmin ? '/admin' : '';
+
   return (
-    <div>
+    <>
       <nav
         className="navbar navbar-expand-lg navbar-light"
         style={{
@@ -59,7 +66,7 @@ function Navbar(props) {
           <div className="navbar-nav">
             <Link
               className="nav-link"
-              to="/"
+              to={`${basePath}/`}
               style={linkStyle}
               onMouseEnter={(e) => {
                 e.currentTarget.style.textDecoration = "underline";
@@ -74,7 +81,7 @@ function Navbar(props) {
             </Link>
             <Link
               className="nav-link"
-              to="/blog"
+              to={`${basePath}/blog`}
               style={linkStyle}
               onMouseEnter={(e) => {
                 e.currentTarget.style.textDecoration = "underline";
@@ -89,7 +96,7 @@ function Navbar(props) {
             </Link>
             <Link
               className="nav-link"
-              to="/project"
+              to={`${basePath}/project`}
               style={linkStyle}
               onMouseEnter={(e) => {
                 e.currentTarget.style.textDecoration = "underline";
@@ -120,7 +127,7 @@ function Navbar(props) {
 
             <Link
               className="nav-link"
-              to="/contact"
+              to={`${basePath}/contact`}
               style={linkStyle}
               onMouseEnter={(e) => {
                 e.currentTarget.style.textDecoration = "underline";
@@ -137,11 +144,9 @@ function Navbar(props) {
         </div>
       </nav>
 
-      {/* Add padding to the top of the page content to account for the fixed navbar */}
       <div style={{ paddingTop: "80px" }}>
-        {/* Your page content goes here */}
       </div>
-    </div>
+    </>
   );
 }
 

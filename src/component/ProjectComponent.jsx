@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./CSS/ProjectComponent.css";
+import "../CSS/ProjectComponent.css";
 
 const ProjectComponent = () => {
   const [isExpanded, setIsExpanded] = useState(false);

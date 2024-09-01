@@ -1,5 +1,13 @@
 import React from "react";
-import "./CSS/HomeStyle.css";
+import "../CSS/HomeStyle.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTwitter,
+  faLinkedin,
+  faFacebook,
+  faGithub,
+  faInstagram,
+} from "@fortawesome/free-brands-svg-icons";
 
 export default function Home() {
   return (
@@ -60,19 +68,29 @@ export default function Home() {
           <h2>Contact</h2>
           <ul className="contact-list">
             <li>
-              <a href="#">Twitter</a>
+              <a href="#">
+                <FontAwesomeIcon icon={faTwitter} />
+              </a>
             </li>
             <li>
-              <a href="#">LinkedIn</a>
+              <a href="#">
+                <FontAwesomeIcon icon={faLinkedin} />
+              </a>
             </li>
             <li>
-              <a href="#">Facebook</a>
+              <a href="#">
+                <FontAwesomeIcon icon={faGithub} />
+              </a>
             </li>
             <li>
-              <a href="#">Google+</a>
+              <a href="#">
+                <FontAwesomeIcon icon={faFacebook} />
+              </a>
             </li>
             <li>
-              <a href="#">SlideShare</a>
+              <a href="#">
+                <FontAwesomeIcon icon={faInstagram} />
+              </a>
             </li>
           </ul>
         </section>

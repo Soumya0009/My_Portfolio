@@ -1,0 +1,14 @@
+.edit-button {
+  position: absolute;
+  top: 100px;
+  right: 30px;
+  cursor: pointer;
+  background-color: #fff; /* Optional: You can style the button */
+  padding: 10px;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.edit-button:hover {
+  background-color: #f0f0f0; /* Optional: Change color on hover */
+}
