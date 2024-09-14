@@ -2,13 +2,14 @@ import Navbar from "./component/Navbar";
 import Project from "./pages/Project";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Blogs from "./pages/Blogs";
 import BlogPost from "./pages/BlogPost";
 import PrivateRouter from "./pages/Router/PrivateRouter";
 import AdminHome from "./pages/Admin/AdminHome";
 import AdminBlog from "./pages/Admin/AdminBlog";
 import AdminProjects from "./pages/Admin/AdminProjects";
+import AdminHomeEdit from "./pages/Admin/AdminHomeEdit"; // Import AdminHomeEdit component
 
 function App() {
   return (
@@ -22,13 +23,14 @@ function App() {
             <Route path="/project" element={<Project />} />
             <Route path="/blog" element={<Blogs />} />
             <Route path="/blog/:id" element={<BlogPost />} />
-            
+
             <Route path="/admin" element={<PrivateRouter />}>
               <Route path="" element={<AdminHome />} />
+              <Route path="edit" element={<AdminHomeEdit />} />{" "}
+              {/* Add route for AdminHomeEdit */}
               <Route path="blog" element={<AdminBlog />} />
-              <Route path="project" element={<AdminProjects/>}/>
+              <Route path="project" element={<AdminProjects />} />
             </Route>
-
           </Routes>
         </div>
       </Router>

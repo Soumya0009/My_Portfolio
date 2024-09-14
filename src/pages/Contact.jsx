@@ -1,5 +1,5 @@
-import React from 'react';
-import '../CSS/ContactForm.css';
+import React, { useState } from "react";
+import "../CSS/ContactForm.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTwitter,
@@ -10,6 +10,30 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 function Contact() {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission, e.g., send data to a server or API
+    console.log("Form submitted:", formData);
+    // Reset form
+    setFormData({
+      fullName: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
+  };
+
   return (
     <>
       <div className="contact-page">
@@ -19,36 +43,52 @@ function Contact() {
             <br /> For Contacting Me...
           </h1>
           <p>Please fill the form for my quick response. </p>
-          <a href="soumyaranjanmohanty0009@gmail.com">
-            soumyaranjanmohanty0009@gmail.com
-          </a>
-
           {/* Contact Section */}
           <section className="contact">
             <h2>Contact</h2>
             <ul className="contact-list">
               <li>
-                <a href="#">
+                <a
+                  href="https://twitter.com/yourprofile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <FontAwesomeIcon icon={faTwitter} />
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a
+                  href="https://linkedin.com/in/yourprofile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <FontAwesomeIcon icon={faLinkedin} />
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a
+                  href="https://github.com/yourprofile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <FontAwesomeIcon icon={faGithub} />
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a
+                  href="https://facebook.com/yourprofile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <FontAwesomeIcon icon={faFacebook} />
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a
+                  href="https://instagram.com/yourprofile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <FontAwesomeIcon icon={faInstagram} />
                 </a>
               </li>
@@ -58,11 +98,38 @@ function Contact() {
 
         <div className="contact-form">
           <h2>Send me a message 🚀</h2>
-          <form>
-            <input type="text" placeholder="Full name*" required />
-            <input type="email" placeholder="Email address*" required />
-            <input type="text" placeholder="Subject" />
-            <textarea placeholder="Some more comments."></textarea>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="fullName"
+              placeholder="Full name*"
+              value={formData.fullName}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email address*"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="text"
+              name="subject"
+              placeholder="Subject*"
+              value={formData.subject}
+              onChange={handleChange}
+              required
+            />
+            <textarea
+              name="message"
+              placeholder="Comments*"
+              value={formData.message}
+              onChange={handleChange}
+              required
+            ></textarea>
             <button type="submit">Send message</button>
           </form>
         </div>
@@ -71,4 +138,4 @@ function Contact() {
   );
 }
 
-export default Contact
+export default Contact;
