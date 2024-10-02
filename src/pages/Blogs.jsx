@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import "../CSS/Blog.css";
 import BlogCard from "../component/BlogCard";
+import { Pagination } from "@mui/material"; // Import Material-UI Pagination component
 
 function Blogs() {
   const blogs = [
@@ -79,13 +80,38 @@ function Blogs() {
       content:
         "By February 2021, the manga had over 150 million copies in circulation, including digital versions...",
     },
-    // Add more blogs as needed
+    {
+      id: 10,
+      image:
+        "https://w0.peakpx.com/wallpaper/726/670/HD-wallpaper-anime-demon-slayer-kimetsu-no-yaiba-muichiro-tokito.jpg",
+      title: "Make Your Point",
+      intro: "This is the introduction of the blog.",
+      content:
+        "By February 2021, the manga had over 150 million copies in circulation, including digital versions...",
+    },
   ];
+
+  // States for current page and number of blogs per page
+  const [currentPage, setCurrentPage] = useState(1);
+  const blogsPerPage = 9; // Adjust to display 9 blogs per page
+
+  // Calculate total pages
+  const totalPages = Math.ceil(blogs.length / blogsPerPage);
+
+  // Get current blogs to display on the current page
+  const indexOfLastBlog = currentPage * blogsPerPage;
+  const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
+  const currentBlogs = blogs.slice(indexOfFirstBlog, indexOfLastBlog);
+
+  // Function to handle page navigation
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
 
   return (
     <>
       <div className="app">
-        {blogs.map((blog) => (
+        {currentBlogs.map((blog) => (
           <BlogCard
             key={blog.id}
             id={blog.id}
@@ -94,6 +120,20 @@ function Blogs() {
             intro={blog.intro}
           />
         ))}
+      </div>
+
+      {/* Material-UI Pagination Component */}
+      <div
+        style={{ display: "flex", justifyContent: "center", marginBottom: "50px" }}
+      >
+        <Pagination
+          count={totalPages} // Total number of pages
+          page={currentPage} // Current active page
+          onChange={handlePageChange} // Handle page change
+          variant="outlined" // Optional styling variant
+          shape="rounded" // Optional shape for pagination buttons
+          color="primary" // Optional color
+        />
       </div>
     </>
   );

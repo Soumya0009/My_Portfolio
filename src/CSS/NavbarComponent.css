@@ -1,0 +1,52 @@
+/* Custom styles for the Navbar */
+.custom-navbar {
+  background-color: #001b2f !important; /* Solid dark navy blue background */
+  padding: 10px 20px; /* Add padding for a more spacious look */
+  transition: background-color 0.3s ease; /* Smooth transition for background */
+}
+
+.custom-navbar .navbar-brand {
+  color: #FFD700 !important; /* Gold color for "Soumya Ranjan Mohanty" */
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding-left: 0;  /* Remove left padding */
+  margin-left: -20px; /* Move brand more to the left */
+}
+
+.custom-nav .nav-item {
+  margin-left: 20px; /* Add spacing between navigation items */
+  color: white !important; /* White text color for nav links */
+  position: relative;
+}
+
+.custom-nav .nav-item:hover {
+  color: #f0f0f0 !important; /* Lighter color on hover */
+}
+
+.custom-nav .nav-item::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: #ffffff; /* White underline */
+  bottom: -5px;
+  left: 0;
+  transition: width 0.3s ease;
+}
+
+.custom-nav .nav-item:hover::after {
+  width: 100%; /* Expand underline on hover */
+}
+
+/* Adjust Navbar for responsiveness */
+@media (max-width: 768px) {
+  .custom-nav .nav-item {
+    margin-left: 10px; /* Reduce spacing for smaller screens */
+    text-align: center;
+  }
+  @media (max-width: 480px){
+    .custom-navbar .navbar-brand {
+        margin-left: 2px;
+    }
+  }
+}

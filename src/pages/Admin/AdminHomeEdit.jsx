@@ -7,6 +7,7 @@ const AdminHomeEdit = React.memo(() => {
   const [image, setImage] = useState(null);
   const [content, setContent] = useState("");
   const [error, setError] = useState("");
+  const fileInputRef = useRef(null);
   const editor = useRef(null);
 
   const handleImageChange = (e) => {
@@ -33,6 +34,18 @@ const AdminHomeEdit = React.memo(() => {
     }
   };
 
+  const handleDelete = () => {
+    const confirmDelete = window.confirm("Do you want to delete all data?");
+    if (confirmDelete) {
+      setContent("");
+      setImage(null);
+      setError(""); // Clear any existing errors
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ""; // Reset the file input value
+      }
+    }
+  };
+
   return (
     <div
       style={{
@@ -50,6 +63,7 @@ const AdminHomeEdit = React.memo(() => {
         onChange={handleImageChange}
         style={{ display: "none" }}
         id="upload-button"
+        ref={fileInputRef} // Attach the ref to the input element
       />
       <label htmlFor="upload-button" style={{ cursor: "pointer" }}>
         <div
@@ -84,15 +98,15 @@ const AdminHomeEdit = React.memo(() => {
       )}
 
       {/* Jodit Editor */}
-      <div style={{ width: "80%" }}>
+      <div style={{ width: "90%", marginTop: "20px", borderRadius: "5px" }}>
         <JoditEditor
           ref={editor}
           value={content}
-          onBlur={(newContent) => setContent(newContent)} // Update state onBlur instead of onChange
+          onBlur={(newContent) => setContent(newContent)}
           config={{
-            readonly: false,
-            height: 500,
-            toolbarAdaptive: false,
+            readonly: false, // Enables editing
+            height: '400',
+            toolbarSticky: false,
           }}
         />
       </div>
@@ -106,6 +120,7 @@ const AdminHomeEdit = React.memo(() => {
       <div style={{ marginTop: "20px" }}>
         <button
           style={{
+            marginTop: "30px",
             backgroundColor: "#28a745",
             color: "white",
             padding: "10px 20px",
@@ -122,6 +137,7 @@ const AdminHomeEdit = React.memo(() => {
         </button>
         <button
           style={{
+            marginTop: "30px",
             backgroundColor: "#dc3545",
             color: "white",
             padding: "10px 20px",
@@ -130,11 +146,7 @@ const AdminHomeEdit = React.memo(() => {
             border: "none",
             cursor: "pointer",
           }}
-          onClick={() => {
-            setContent("");
-            setImage(null);
-            setError(""); // Clear any existing errors
-          }}
+          onClick={handleDelete}
         >
           <FontAwesomeIcon icon={faTrash} style={{ marginRight: "10px" }} />
           Delete

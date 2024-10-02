@@ -2,6 +2,36 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 100%; /* Ensure parent container is 100% of viewport */
+  width: 100%;
   padding: 20px;
+}
+
+.pagination {
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  cursor: pointer;
+  border-radius: 5px;
+  transition-delay: 30ms;
+}
+.pagination button:hover{
+  background-color: azure;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }

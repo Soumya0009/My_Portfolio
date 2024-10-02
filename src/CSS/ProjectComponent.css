@@ -1,4 +1,5 @@
 .card {
+    position: relative;
     border: 1px solid #ccc;
     border-radius: 8px;
     overflow: hidden;
@@ -7,100 +8,91 @@
     width: 60vw;
     margin: 20px auto;
     background-color: #eefcff;
-    color: rgb(0, 2, 142);
+    color: rgb(255, 255, 255);
     box-shadow: 0 4px 8px rgba(0, 176, 255, 0.2);
     max-height: 50vh;
     display: flex;
     align-items: center;
-    flex-direction: row;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .image-cap {
-    margin-left: 10px;
-    width: 55%;
-    height: auto;
-    display: block;
-    transition: all 0.3s ease;
+    width: 100%; /* Full width image */
+    height: 100%;
     object-fit: cover;
-    max-height: 100%;
-    border-radius: 8px;
+    opacity: 0.6; /* Reduce opacity before expansion */
+    transition: all 0.3s ease; /* Smooth transition */
+    
 }
 
 .card-content {
-    padding: 20px;
-    overflow: hidden;
-    width: 45%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+    color: white;
+    text-align: center;
+    transition: all 0.3s ease;
 }
 
 .expanded {
     width: 80vw;
     max-height: none;
     box-shadow: 0 6px 16px rgba(0, 176, 255, 0.4);
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .expanded .image-cap {
-    max-height: none;
-    width: 55%;
-    border-radius: 8px 0 0 8px;
+    opacity: 1; /* Full opacity when expanded */
+    width: 100%; /* Full width */
 }
 
 .expanded .card-content {
-    width: 45%;
+    position: relative; /* Move content under image */
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    background: none; /* Remove background overlay */
+    color: black; /* Change text color for visibility */
+    padding: 15px;
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
-    .card, .expanded {
-        width: 80vw; /* Increase the card width for medium screens */
-    }
-}
-
 @media (max-width: 768px) {
     .card, .expanded {
-        flex-direction: column; /* Stack content vertically on smaller screens */
-        width: 90vw; /* Increase width for small screens */
-        max-height: none; /* Allow the card to expand naturally */
+        width: 90vw;
         padding: 10px;
+        /* margin-top: 35px; */
     }
 
     .image-cap {
-        width: 100%; /* Image takes full width */
+        width: 100%;
         height: auto;
-        border-radius: 8px 8px 0 0; /* Adjust corners for stacked layout */
-        /* padding: 10px; */
     }
 
-    .expanded .card-content {
-         width: 100%; /* Content takes full width */
-        padding: 15px;  /* Reduce padding for smaller screens */
+    .card-content {
+        padding: 15px;
     }
-     .card-content {
-        width: 100%; /* Content takes full width */
-        padding: 15px; /* Reduce padding for smaller screens */
-    }
-
 }
 
 @media (max-width: 480px) {
     .card, .expanded {
-        width: 95vw; /* Almost full screen width on very small devices */
-        margin: 10px auto; /* Reduce margin for smaller devices */
+        width: 95vw;
+        margin: 10px auto;
+        padding: 10px;
+        /* margin-top: 35px; */
+    }
+
+    .card-content {
         padding: 10px;
     }
-
-    .expanded .card-content {
-         width: 100%; /* Content takes full width */
-        padding: 15px;  /* Further reduce padding for small devices */
-        
-    }
-    .card-content {
-        padding: 10px; /* Further reduce padding for small devices */
-    }
-
 }
-
-

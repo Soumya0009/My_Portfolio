@@ -1,13 +1,13 @@
 import React from "react";
 import "../CSS/HomeStyle.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTwitter,
-  faLinkedin,
-  faFacebook,
-  faGithub,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
+import LocationOnIcon from "@mui/icons-material/LocationOn"; // Import for Location icon
+import PhoneIcon from "@mui/icons-material/Phone"; // Import for Phone icon
+import EmailIcon from "@mui/icons-material/Email"; // Import for Email icon
+import XIcon from "@mui/icons-material/X";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
 
 export default function Home() {
   return (
@@ -62,39 +62,82 @@ export default function Home() {
             .
           </p>
         </section>
-
-        {/* Contact Section */}
-        <section className="contact">
-          <h2>Contact</h2>
-          <ul className="contact-list">
-            <li>
-              <a href="#">
-                <FontAwesomeIcon icon={faTwitter} />
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <FontAwesomeIcon icon={faLinkedin} />
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <FontAwesomeIcon icon={faGithub} />
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <FontAwesomeIcon icon={faFacebook} />
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <FontAwesomeIcon icon={faInstagram} />
-              </a>
-            </li>
-          </ul>
-        </section>
       </div>
+
+      {/* Footer Section */}
+      <footer className="footer">
+        <div className="footer-content">
+          {/* Contact Section */}
+          <section className="contact">
+            <h2>Contact</h2>
+
+            {/* Social Links */}
+            <ul className="all-contacts">
+              <li>
+                <a
+                  href="https://twitter.com/yourprofile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Twitter"
+                >
+                  <XIcon />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://linkedin.com/in/yourprofile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Linkedin"
+                >
+                  <LinkedInIcon />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/yourprofile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Github"
+                >
+                  <GitHubIcon />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://facebook.com/yourprofile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Facebook"
+                >
+                  <FacebookIcon />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://instagram.com/yourprofile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Instagram"
+                >
+                  <InstagramIcon />
+                </a>
+              </li>
+            </ul>
+            <ul className="contact-details">
+              <li>
+                <LocationOnIcon /> Bhubaneswar
+              </li>
+              <li>
+                <PhoneIcon /> 7077342241
+              </li>
+              <li>
+                <EmailIcon /> soumyaranjanmohanty0009@gmail.com
+              </li>
+            </ul>
+          </section>
+        </div>
+      </footer>
     </div>
   );
 }
