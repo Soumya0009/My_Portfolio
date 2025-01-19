@@ -1,14 +1,58 @@
-.edit-button {
+.add-button {
   position: absolute;
   top: 100px;
   right: 30px;
   cursor: pointer;
-  background-color: #fff; /* Optional: You can style the button */
+  background-color: #92ffd5;
   padding: 10px;
-  border-radius: 50%;
+  border-radius: 10%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for background and hover */
+}
+
+.add-button:hover {
+  background-color: #baff95;
+  transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.edit-button {
+  position: absolute;
+  top: 160px;
+  right: 30px;
+  cursor: pointer;
+  background-color: #95edff;
+  padding: 10px;
+  border-radius: 10%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .edit-button:hover {
-  background-color: #f0f0f0; /* Optional: Change color on hover */
+  background-color: #81fdf9;
+  transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.delete-button {
+  position: absolute;
+  top: 220px;
+  right: 30px;
+  cursor: pointer;
+  background-color: #ff95a3;
+  padding: 10px;
+  border-radius: 10%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.delete-button:hover {
+  background-color: #fd8181;
+  transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+/* Media Query for responsiveness */
+@media (max-width: 768px) {
+  .add-button, .edit-button, .delete-button {
+    right: 10px; /* Adjust for smaller screens */
+    top: 10px;   /* Ensure buttons fit within the viewport */
+  }
 }

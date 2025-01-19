@@ -1,19 +1,29 @@
-import React from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrashAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
+import { useNavigate } from "react-router-dom"; // Import navigate
 import "../../CSS/AdminProjects.css";
-import Project from '../Project.jsx';
+import Project from "../Project.jsx";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+
 function AdminProjects() {
+  const navigate = useNavigate(); // Initialize navigate function
+
+  const handleAddNew = () => {
+    // Navigate to the Add Project page
+    navigate("/admin/add/project");
+  };
+
   return (
     <>
-      <div className="action-buttons">
-        <FontAwesomeIcon icon={faPlus} size="2x" title="Add New" />
-        <FontAwesomeIcon icon={faEdit} size="2x" title="Edit" />
-        <FontAwesomeIcon icon={faTrashAlt} size="2x" title="Delete" />
+      <div
+        className="action-buttons"
+        onClick={handleAddNew}
+        title="Add New Project"
+      >
+        <PostAddIcon />
       </div>
       <Project />
     </>
   );
 }
 
-export default AdminProjects
+export default AdminProjects;

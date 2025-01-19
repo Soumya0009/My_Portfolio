@@ -4,23 +4,40 @@
   right: 8px;
   display: flex;
   flex-direction: column;
-  gap: 50px; 
-  background-color: #fff; 
+  gap: 50px; /* Spacing between the buttons */
+  background-color: #92ffd5; 
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .action-buttons .fa-icon {
   cursor: pointer;
-  transition: transform 0.2s;
+  font-size: 24px; /* Set a consistent icon size */
+  transition: transform 0.2s, color 0.2s; /* Smooth transition for scaling and color */
 }
 
 .action-buttons .fa-icon:hover {
-  transform: scale(1.2); /* Slight zoom on hover */
+  transform: scale(1.2); /* Slight zoom effect on hover */
+  color: #ff4500; /* Change color on hover */
 }
 
 .action-buttons:hover {
-  background-color: #f0f0f0; /* Optional: Change color on hover */
+  background-color: #baff95; /* Change background color when container is hovered */
+  transform: translateY(-5px); /* Slight upward movement for a more dynamic effect */
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+  .action-buttons {
+    top: 10px; /* Adjust top positioning */
+    right: 10px; /* Adjust right positioning */
+    gap: 30px; /* Reduce gap for smaller screens */
+  }
+
+  .action-buttons .fa-icon {
+    font-size: 20px; /* Slightly smaller icons for mobile */
+  }
 }

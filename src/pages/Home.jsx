@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../CSS/HomeStyle.css";
 import LocationOnIcon from "@mui/icons-material/LocationOn"; // Import for Location icon
 import PhoneIcon from "@mui/icons-material/Phone"; // Import for Phone icon
@@ -8,21 +8,60 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import {
+  getAboutsByUser,
+  fetchAboutImageAsBlob,
+} from "../Services/post-service"; // Import functions
+import Skeleton from "react-loading-skeleton"; // Import Skeleton library
+import "react-loading-skeleton/dist/skeleton.css"; // Import Skeleton CSS
 
 export default function Home() {
+  const [aboutData, setAboutData] = useState(null); // State to store fetched data
+  const [imageSrc, setImageSrc] = useState(null); // State to store image URL
+  const [error, setError] = useState(null); // State for error handling
+  const userId = "1"; // Replace with actual user ID
+
+  useEffect(() => {
+    // Fetch About data
+    getAboutsByUser(userId)
+      .then((data) => {
+        setAboutData(data);
+
+        // Fetch the About image if available
+        if (data && data.length > 0 && data[0].imageName) {
+          fetchAboutImageAsBlob(data[0].imageName)
+            .then((blob) => {
+              const url = URL.createObjectURL(blob); // Convert blob to object URL
+              setImageSrc(url);
+            })
+            .catch((err) => {
+              console.error("Error fetching the image blob:", err);
+              setError("Unable to load about image.");
+            });
+        }
+      })
+      .catch((err) => {
+        console.error("Error fetching about data:", err);
+        setError("Unable to load about information.");
+      });
+  }, [userId]);
+
   return (
     <div className="home-container">
       {/* Header Section */}
       <header className="header">
         <div className="header-content">
-          <img
-            src="https://i.pinimg.com/236x/56/c5/8a/56c58aecc8659b978d8339bf8450cb9c.jpg" // Replace with your image URL
-            alt="Profile"
-            className="header-image"
-          />
+          {imageSrc ? (
+            <img src={imageSrc} alt="About" className="header-image" />
+          ) : (
+            // Skeleton loader for image
+            <Skeleton circle={true} height={150} width={150} />
+          )}
           <div>
-            <h1 className="header-title">SOUMYA RANJAN MOHANTY</h1>
-            <p className="header-subtitle">
+            <h1 className="header-title" style={{ fontSize: "36px" }}>
+              SOUMYA RANJAN MOHANTY
+            </h1>
+            <p className="header-subtitle" style={{ fontSize: "24px" }}>
               Software <a href="#">Engineer</a>
             </p>
           </div>
@@ -33,34 +72,15 @@ export default function Home() {
       <div className="main-content">
         {/* About Section */}
         <section className="about">
-          <h2>About me</h2>
-          <p>
-            Software engineers apply engineering principles and knowledge of
-            programming languages to build software solutions for end users.{" "}
-            <a href="#">
-              Software engineers design and develop computer games, business
-              applications, operating systems, network control systems,
-            </a>
-            and middleware—to name just a few of the many career paths
-            available.
-            <a href="#">
-              Software engineers typically need a bachelor's degree in computer
-              science or a related degree program, as well as technical know-how
-              and solid communication skills. While strong math skills can be
-              helpful, software engineering often relies more on logic and
-              analytical thinking than advanced mathematics. However, some areas
-              of software engineering, like graphics programming or machine
-              learning, may involve more complex math concepts.
-            </a>{" "}
-            and
-            <a href="#">
-              Gaining relevant work experience is also essential to launching a
-              career as a software engineer. This can be done through
-              internships, bootcamps, certificate programs, or by completing
-              real-world projects on your own.
-            </a>
-            .
-          </p>
+          <h2>About Me</h2>
+          {error ? (
+            <p>{error}</p>
+          ) : aboutData && aboutData.length > 0 ? (
+            <p dangerouslySetInnerHTML={{ __html: aboutData[0].content }}></p> // Use the first element and safely render HTML
+          ) : (
+            // Skeleton loader for about text
+            <Skeleton count={5} height={20} />
+          )}
         </section>
       </div>
 
@@ -75,7 +95,7 @@ export default function Home() {
             <ul className="all-contacts">
               <li>
                 <a
-                  href="https://twitter.com/yourprofile"
+                  href="https://x.com/Soumyam0009?t=K6SdYkLElF7jkOBLT98bMg&s=09"
                   target="_blank"
                   rel="noopener noreferrer"
                   title="Twitter"
@@ -85,27 +105,27 @@ export default function Home() {
               </li>
               <li>
                 <a
-                  href="https://linkedin.com/in/yourprofile"
+                  href="https://www.linkedin.com/in/soumya-ranjan-mohanty-b84631229?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
                   target="_blank"
                   rel="noopener noreferrer"
-                  title="Linkedin"
+                  title="LinkedIn"
                 >
                   <LinkedInIcon />
                 </a>
               </li>
               <li>
                 <a
-                  href="https://github.com/yourprofile"
+                  href="https://github.com/Soumya0009"
                   target="_blank"
                   rel="noopener noreferrer"
-                  title="Github"
+                  title="GitHub"
                 >
                   <GitHubIcon />
                 </a>
               </li>
               <li>
                 <a
-                  href="https://facebook.com/yourprofile"
+                  href="https://www.facebook.com/share/1836Zb1acU/"
                   target="_blank"
                   rel="noopener noreferrer"
                   title="Facebook"
@@ -115,7 +135,7 @@ export default function Home() {
               </li>
               <li>
                 <a
-                  href="https://instagram.com/yourprofile"
+                  href="https://www.instagram.com/__soumyaranjanmohanty__/profilecard/?igsh=MXVycTFqbDlhbzN4NQ=="
                   target="_blank"
                   rel="noopener noreferrer"
                   title="Instagram"
@@ -129,7 +149,7 @@ export default function Home() {
                 <LocationOnIcon /> Bhubaneswar
               </li>
               <li>
-                <PhoneIcon /> 7077342241
+                <PhoneIcon /> 9078530488
               </li>
               <li>
                 <EmailIcon /> soumyaranjanmohanty0009@gmail.com

@@ -1,12 +1,14 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React from "react";
+import { Outlet, Navigate } from "react-router-dom";
+import { isLogedIn } from "../../auth";
+const PrivateRouter = () => {
+  return isLogedIn() ? <Outlet /> : <Navigate to={"/admin/login"} />;
 
-const PrivateRouter = ()=> {
-  return (
-    <>
-    <Outlet/>
-    </>
-  )
-}
+  // if (isLogedIn()) {
+  //   return <Outlet />;
+  // } else {
+  //   return <Navigate to={"/admin/login"}/>
+  // }
+};
 
-export default PrivateRouter
+export default PrivateRouter;

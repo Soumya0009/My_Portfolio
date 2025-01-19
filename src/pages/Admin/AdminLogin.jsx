@@ -1,69 +1,118 @@
 import React, { useState } from "react";
-import "../CSS/AdminLogin.css"; // Import the custom CSS file
+import "../../CSS/AdminLogin.CSS";
 import { Outlet, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { loginUser } from "../../Services/user-service";
+import { doLogin } from "../../auth";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import {
+  TextField,
+  IconButton,
+  InputAdornment,
+  CircularProgress,
+} from "@mui/material"; // Add CircularProgress
 
 const AdminLogin = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate(); // useNavigate hook to programmatically navigate
+  const [loginDetails, setLoginDetails] = useState({
+    username: "",
+    password: "",
+  });
+  const [isPasswordVisible, setPasswordVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const navigate = useNavigate();
 
-    let status;
-    if (email === "soumya@123" && password === "unknown") {
-      // Redirect to a different route upon successful login
-      navigate("/dashboard"); 
-      status = true;
-    } else {
-      console.info("Please enter a valid user ID and password!!!");
-      status = false;
+  const handleChange = (event, field) => {
+    const actualValue = event.target.value;
+    setLoginDetails({
+      ...loginDetails,
+      [field]: actualValue,
+    });
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+
+    if (loginDetails.username === "" || loginDetails.password === "") {
+      toast.error("Username and Password are required!");
+      return;
     }
+
+    setIsLoading(true);
+
+    loginUser(loginDetails)
+      .then((data) => {
+        toast.success("Login Success");
+        doLogin(data, () => {
+          navigate("/admin");
+        });
+        setLoginDetails({ username: "", password: "" });
+      })
+      .catch((error) => {
+        const errorMessage =
+          error.response?.data?.message ||
+          "An error occurred. Please try again later.";
+        toast.error(errorMessage);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
-    <>
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-md-4">
-            <div className="card mt-5 login-card">
-              <div className="card-body">
-                <h3 className="card-title text-center">Admin Login</h3>
-                <form onSubmit={handleSubmit}>
-                  <div className="form-group">
-                    <label>Email address</label>
-                    <input
-                      type="email"
-                      className="form-control login-input"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Password</label>
-                    <input
-                      type="password"
-                      className="form-control login-input"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="btn btn-primary btn-block mt-4"
-                  >
-                    Login
-                  </button>
-                </form>
-              </div>
-            </div>
+    <div className="login-container">
+      <div className="login-card">
+        <h2 className="login-title">Admin Login</h2>
+        <form onSubmit={handleFormSubmit}>
+          <div className="form-group">
+            <TextField
+              label="Username"
+              variant="outlined"
+              fullWidth
+              value={loginDetails.username}
+              onChange={(e) => handleChange(e, "username")}
+              className="login-input"
+            />
           </div>
-        </div>
+          <div className="form-group">
+            <TextField
+              type={isPasswordVisible ? "text" : "password"}
+              label="Password"
+              variant="outlined"
+              fullWidth
+              value={loginDetails.password}
+              onChange={(e) => handleChange(e, "password")}
+              className="login-input"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setPasswordVisible(!isPasswordVisible)}
+                      edge="end"
+                    >
+                      {isPasswordVisible ? (
+                        <VisibilityIcon />
+                      ) : (
+                        <VisibilityOffIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </div>
+          <button type="submit" className="btn-login" disabled={isLoading}>
+            {isLoading ? (
+              <CircularProgress size={24} style={{ color: "white" }} />
+            ) : (
+              "Login"
+            )}
+          </button>
+        </form>
       </div>
       <Outlet />
-    </>
+    </div>
   );
 };
 

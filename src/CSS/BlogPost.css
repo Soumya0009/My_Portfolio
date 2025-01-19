@@ -1,5 +1,5 @@
+/* General Blog Post Styling */
 .blog-post {
-  /* margin-top: 20px; */
   max-width: 80%;
   margin: 20px auto;
   padding: 20px;
@@ -8,21 +8,31 @@
   box-sizing: border-box;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adding shadow */
+  overflow: hidden; /* Ensures no content escapes the card */
 }
 
+/* Image Container Styling */
 .image-container {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
+  overflow: hidden; /* Prevents overflow of the image */
+  border-radius: 8px; /* Matches the card's border radius */
+  width: 100%; /* Ensure container width is 100% */
 }
 
 .image-container img {
-  margin-top: 20px;
-  max-width: 100%;
+  margin: 0; /* Removes any margin to ensure proper containment */
+  max-width: 100%; /* Makes the image responsive */
   height: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding shadow to image */
+  display: block; /* Ensures the image stays within the container */
+  border-radius: 8px; /* Matches container's border radius */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds shadow to the image */
+  object-fit: contain; /* Ensures the image scales properly */
 }
 
+/* Content Styling */
 .content {
   background-color: #c9e1ff;
   padding: 20px;
@@ -42,8 +52,12 @@
   line-height: 1.6;
 }
 
-/* Responsive adjustments */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
+  .blog-post {
+    max-width: 90%; /* Reduce overall width for better fit */
+  }
+
   .content h1 {
     font-size: 1.8rem;
   }
@@ -55,6 +69,11 @@
 }
 
 @media (max-width: 480px) {
+  .blog-post {
+    max-width: 95%; /* Further adjustment for very small screens */
+    padding: 10px; /* Reduce padding */
+  }
+
   .content h1 {
     font-size: 1.5rem;
   }
@@ -62,5 +81,9 @@
   .content p {
     font-size: 0.9rem;
     line-height: 1.4;
+  }
+
+  .image-container img {
+    border-radius: 6px; /* Match smaller design aesthetic */
   }
 }

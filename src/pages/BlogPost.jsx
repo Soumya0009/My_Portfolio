@@ -1,113 +1,129 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "../CSS/BlogPost.css";
+import blogService from "../Services/createBlog"; // Assuming this is your service for fetching blogs
+import { BASE_URL } from "../Services/helper"; // Assuming this contains the base API URL
+import { toast } from "react-toastify";
 
 const BlogPost = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // Extract blog ID from URL parameters
+  const [blog, setBlog] = useState(null); // State for the current blog
+  const [loading, setLoading] = useState(true); // Loading state
 
-  const blogs = [
-    {
-      id: 1,
-      image:
-        "https://w0.peakpx.com/wallpaper/726/670/HD-wallpaper-anime-demon-slayer-kimetsu-no-yaiba-muichiro-tokito.jpg",
-      title: "Make Your Point",
-      intro: "This is the introduction of the blog.",
-      content:
-        "The fourth and final season, titled Demon Slayer: Kimetsu no Yaiba – Hashira Training Arc, adapts from the 15th and 16th volumes (chapters 128–139) of the manga. It premiered on May 12, 2024, with a one-hour episode. The season ended with a one-hour special, which aired on June 30 of the same year." +
-        " The fourth and final season, titled Demon Slayer: Kimetsu no Yaiba – Hashira Training Arc, adapts from the 15th and 16th volumes (chapters 128–139) of the manga. It premiered on May 12, 2024, with a one-hour episode. The season ended with a one-hour special, which aired on June 30 of the same year." +
-        " The fourth and final season, titled Demon Slayer: Kimetsu no Yaiba – Hashira Training Arc, adapts from the 15th and 16th volumes (chapters 128–139) of the manga. It premiered on May 12, 2024, with a one-hour episode. The season ended with a one-hour special, which aired on June 30 of the same year.",
-    },
-    {
-      id: 2,
-      image:
-        "https://w0.peakpx.com/wallpaper/726/670/HD-wallpaper-anime-demon-slayer-kimetsu-no-yaiba-muichiro-tokito.jpg",
-      title: "Make Your Point",
-      intro: "This is the introduction of the blog.",
-      content:
-        "By February 2021, the manga had over 150 million copies in circulation, including digital versions...",
-    },
-    {
-      id: 3,
-      image:
-        "https://w0.peakpx.com/wallpaper/726/670/HD-wallpaper-anime-demon-slayer-kimetsu-no-yaiba-muichiro-tokito.jpg",
-      title: "Make Your Point",
-      intro: "This is the introduction of the blog.",
-      content:
-        "By February 2021, the manga had over 150 million copies in circulation, including digital versions...",
-    },
-    {
-      id: 4,
-      image:
-        "https://w0.peakpx.com/wallpaper/726/670/HD-wallpaper-anime-demon-slayer-kimetsu-no-yaiba-muichiro-tokito.jpg",
-      title: "Make Your Point",
-      intro: "This is the introduction of the blog.",
-      content:
-        "By February 2021, the manga had over 150 million copies in circulation, including digital versions...",
-    },
-    {
-      id: 5,
-      image:
-        "https://w0.peakpx.com/wallpaper/726/670/HD-wallpaper-anime-demon-slayer-kimetsu-no-yaiba-muichiro-tokito.jpg",
-      title: "Make Your Point",
-      intro: "This is the introduction of the blog.",
-      content:
-        "By February 2021, the manga had over 150 million copies in circulation, including digital versions...",
-    },
-    {
-      id: 6,
-      image:
-        "https://w0.peakpx.com/wallpaper/726/670/HD-wallpaper-anime-demon-slayer-kimetsu-no-yaiba-muichiro-tokito.jpg",
-      title: "Make Your Point",
-      intro: "This is the introduction of the blog.",
-      content:
-        "By February 2021, the manga had over 150 million copies in circulation, including digital versions...",
-    },
-    {
-      id: 7,
-      image:
-        "https://w0.peakpx.com/wallpaper/726/670/HD-wallpaper-anime-demon-slayer-kimetsu-no-yaiba-muichiro-tokito.jpg",
-      title: "Make Your Point",
-      intro: "This is the introduction of the blog.",
-      content:
-        "By February 2021, the manga had over 150 million copies in circulation, including digital versions...",
-    },
-    {
-      id: 8,
-      image:
-        "https://w0.peakpx.com/wallpaper/726/670/HD-wallpaper-anime-demon-slayer-kimetsu-no-yaiba-muichiro-tokito.jpg",
-      title: "Make Your Point",
-      intro: "This is the introduction of the blog.",
-      content:
-        "By February 2021, the manga had over 150 million copies in circulation, including digital versions...",
-    },
-    {
-      id: 9,
-      image:
-        "https://w0.peakpx.com/wallpaper/1004/504/HD-wallpaper-demon-slayer-kimetsu-no-yaiba.jpg",
-      title: "HTML CSS Full Course",
-      intro: "Learn HTML and CSS in this full course.",
-      content: "This is the full content of the HTML CSS course blog.",
-    },
-    // Add more blogs as needed
-  ];
+  useEffect(() => {
+    // Fetch the specific blog based on the ID
+    const fetchBlog = async () => {
+      try {
+        const response = await blogService.getBlogById(id); // Assuming `getBlogById` fetches the blog by its ID
+        setBlog(response); // Set the blog data
+      } catch (error) {
+        toast.error("Failed to fetch the blog post");
+        console.error("Error fetching blog post:", error);
+      } finally {
+        setLoading(false); // Stop the loading state
+      }
+    };
 
-  const blog = blogs.find((blog) => blog.id.toString() === id);
+    fetchBlog();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div style={{ textAlign: "center", margin: "20px" }}>Loading...</div>
+    );
+  }
 
   if (!blog) {
-    return <div>Blog post not found</div>;
+    return (
+      <div style={{ textAlign: "center", color: "#888", margin: "20px" }}>
+        Blog post not found
+      </div>
+    );
   }
 
   return (
     <div className="blog-post">
       <div className="image-container">
-        <img src={blog.image} alt={blog.title} />
+        <img
+          src={
+            blog.imageName
+              ? `${BASE_URL}/api/blog/image/${blog.imageName}` // Dynamically fetch image from API
+              : "default-image.jpg" // Fallback image
+          }
+          alt={blog.title}
+        />
       </div>
       <div className="content">
         <h1>{blog.title}</h1>
-        <p>{blog.content}</p>
+        <div dangerouslySetInnerHTML={{ __html: blog.content }} />
       </div>
     </div>
   );
 };
 
 export default BlogPost;
+
+// import React, { useEffect, useState } from "react";
+// import { useParams } from "react-router-dom";
+// import "../CSS/BlogPost.css";
+// import blogService from "../Services/createBlog"; // Assuming this is your service for fetching blogs
+// import { BASE_URL } from "../Services/helper"; // Assuming this contains the base API URL
+// import { toast } from "react-toastify";
+
+// const BlogPost = () => {
+//   const { id } = useParams(); // Extract blog ID from URL parameters
+//   const [blog, setBlog] = useState(null); // State for the current blog
+//   const [loading, setLoading] = useState(true); // Loading state
+
+//   useEffect(() => {
+//     // Fetch the specific blog based on the ID
+//     const fetchBlog = async () => {
+//       try {
+//         const response = await blogService.getBlogById(id); // Assuming `getBlogById` fetches the blog by its ID
+//         setBlog(response); // Set the blog data
+//       } catch (error) {
+//         toast.error("Failed to fetch the blog post");
+//         console.error("Error fetching blog post:", error);
+//       } finally {
+//         setLoading(false); // Stop the loading state
+//       }
+//     };
+
+//     fetchBlog();
+//   }, [id]);
+
+//   if (loading) {
+//     return (
+//       <div style={{ textAlign: "center", margin: "20px" }}>Loading...</div>
+//     );
+//   }
+
+//   if (!blog) {
+//     return (
+//       <div style={{ textAlign: "center", color: "#888", margin: "20px" }}>
+//         Blog post not found
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div className="blog-post">
+//       <div className="image-container">
+//         <img
+//           src={
+//             blog.imageName
+//               ? `${BASE_URL}/api/blog/image/${blog.imageName}` // Dynamically fetch image from API
+//               : "default-image.jpg" // Fallback image
+//           }
+//           alt={blog.title}
+//         />
+//       </div>
+//       <div className="content">
+//         <h1>{blog.title}</h1>
+//         <p>{blog.content}</p> {/* Display full blog content */}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default BlogPost;

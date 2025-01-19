@@ -1,98 +1,159 @@
+/* General Card Layout */
 .card {
-    position: relative;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    width: 60vw;
-    margin: 20px auto;
-    background-color: #eefcff;
-    color: rgb(255, 255, 255);
-    box-shadow: 0 4px 8px rgba(0, 176, 255, 0.2);
-    max-height: 50vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  position: relative;
+  width: 850px; /* Increased width */
+  height: 150px; /* Fixed height */
+  margin: 20px;
+  background: #fff;
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Subtle shadow */
+  overflow: hidden;
+  transition: all 0.3s ease-in-out; /* Smooth transition */
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
 }
 
-.image-cap {
-    width: 100%; /* Full width image */
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.6; /* Reduce opacity before expansion */
-    transition: all 0.3s ease; /* Smooth transition */
-    
+/* Card Image */
+.card img {
+  width: 100%; /* Image adjusts to card width */
+  height: 40%; /* Fixed height for image */
+  object-fit: cover; /* Prevent image distortion */
+  border-bottom: 1px solid #eee; /* Divider */
 }
 
+/* Card Content */
 .card-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
-    color: white;
-    text-align: center;
-    transition: all 0.3s ease;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  height: 40%; /* Remaining height after image */
 }
 
-.expanded {
-    width: 80vw;
-    max-height: none;
-    box-shadow: 0 6px 16px rgba(0, 176, 255, 0.4);
-    flex-direction: column;
+.card-content h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+  padding-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.expanded .image-cap {
-    opacity: 1; /* Full opacity when expanded */
-    width: 100%; /* Full width */
+.card-content p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
+  flex-grow: 1; /* Allow content to fill space */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; /* Prevent text wrapping */
+  transition: max-height 0.3s ease-in-out;
 }
 
-.expanded .card-content {
-    position: relative; /* Move content under image */
-    top: auto;
-    left: auto;
-    width: 100%;
-    height: auto;
-    background: none; /* Remove background overlay */
-    color: black; /* Change text color for visibility */
-    padding: 15px;
+/* Expanded Card */
+.card.expanded {
+  width: 80vw; /* Wider width */
+  height: auto; /* Allow height to grow */
+  max-height: none;
+  box-shadow: 0 6px 16px rgba(0, 176, 255, 0.4);
+  flex-direction: column;
+  cursor: default;
+}
+
+.card.expanded .card-content {
+  text-align: left; /* Left-align text for better readability */
+  height: auto; /* Allow content to expand */
+  overflow: visible;
+}
+
+.card.expanded p {
+  white-space: normal; /* Allow text wrapping */
+  overflow: visible;
+  text-overflow: initial;
+}
+
+/* Card Actions */
+.card-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.card-actions button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 50px;
+  background-color: #007bff;
+  margin-bottom: 10px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-actions button:hover {
+  background-color: #0056b3;
+  transform: translateY(-3px);
+}
+
+.card-actions button:active {
+  transform: translateY(2px);
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+  .card {
+    width: 95%; /* Adjust width on tablets */
+    height: auto; /* Allow flexible height */
+  }
+}
+
 @media (max-width: 768px) {
-    .card, .expanded {
-        width: 90vw;
-        padding: 10px;
-        /* margin-top: 35px; */
-    }
+  .card {
+    width: 90%; /* Adjust card width on medium screens */
+    height: auto; /* Flexible height */
+  }
 
-    .image-cap {
-        width: 100%;
-        height: auto;
-    }
+  .card img {
+    height: 200px; /* Adjust image height */
+  }
 
-    .card-content {
-        padding: 15px;
-    }
+  .card-content {
+    height: auto;
+  }
 }
 
 @media (max-width: 480px) {
-    .card, .expanded {
-        width: 95vw;
-        margin: 10px auto;
-        padding: 10px;
-        /* margin-top: 35px; */
-    }
+  .card {
+    width: 100%; /* Full width on small screens */
+    height: auto; /* Flexible height */
+  }
 
-    .card-content {
-        padding: 10px;
-    }
+  .card img {
+    height: 150px; /* Smaller image height */
+  }
+
+  .card-content h3 {
+    font-size: 1.5rem; /* Adjust title size */
+  }
+
+  .card-content p {
+    font-size: 0.9rem; /* Adjust paragraph size */
+  }
+
+  .card-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-actions button {
+    width: 100%;
+  }
 }
