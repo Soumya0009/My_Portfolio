@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
-import "../CSS/NavbarComponent.CSS";
+import "../CSS/NavbarComponent.css";
 import { isLogedIn, doLogout } from "../auth"; // Import your authentication functions
 import LogoutIcon from "@mui/icons-material/Logout";
 
