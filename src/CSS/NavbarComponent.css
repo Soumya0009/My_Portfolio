@@ -53,9 +53,10 @@
     margin-left: 10px; /* Reduce spacing for smaller screens */
     text-align: center;
   }
-  @media (max-width: 480px){
-    .custom-navbar .navbar-brand {
-        margin-left: 2px;
-    }
+}
+
+@media (max-width: 480px) {
+  .custom-navbar .navbar-brand {
+    margin-left: 2px;
   }
 }
