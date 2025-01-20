@@ -38,6 +38,15 @@
   width: 100%; /* Expand underline on hover */
 }
 
+/* Custom styles for Navbar collapse button */
+.navbar-toggler {
+  border-color: #ffffff !important; /* Change the border color to white */
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23ffffff' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important; /* White icon for the toggle */
+}
+
 /* Adjust Navbar for responsiveness */
 @media (max-width: 768px) {
   .custom-nav .nav-item {

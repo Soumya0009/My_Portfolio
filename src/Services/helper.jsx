@@ -1,7 +1,9 @@
 import axios from "axios";
 
 // Base URL of the backend API
-export const BASE_URL = "http://localhost:9090";
+// export const BASE_URL = "http://localhost:9090";
+export const BASE_URL =
+  "https://myportfoliobackend-production-7e78.up.railway.app";
 
 // Create public axios instance
 export const myAxios = axios.create({
