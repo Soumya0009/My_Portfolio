@@ -1,35 +1,47 @@
-/* General Blog Post Styling */
-.blog-post {
-  max-width: 80%;
-  margin: 20px auto;
-  padding: 20px;
-  color: #ffffff;
-  background-color: #cdcdff;
+/* Reset Defaults */
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adding shadow */
-  overflow: hidden; /* Ensures no content escapes the card */
 }
 
-/* Image Container Styling */
-.image-container {
+/* Full-Screen Centering */
+html, body {
+  width: 100%;
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center;  /* Horizontally centers */
+  align-items: flex-start;  /* Prevents sticking to the top */
+  background-color: #f5f5f5; /* Optional */
+  padding: 20px 0; /* Adds spacing */
+  overflow-x: hidden;
+}
+
+/* Blog Post Container */
+.blog-post {
+  width: 90%;
+  max-width: 800px;
+  background-color: #cdcdff;
+  color: #000;  /* Changed to black for better readability */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  margin: 20px auto;  /* Ensures proper centering */
+  word-wrap: break-word; /* Prevents text overflow */
+}
+
+/* Image Container */
+.image-container {
+  text-align: center;
   margin-bottom: 20px;
-  overflow: hidden; /* Prevents overflow of the image */
-  border-radius: 8px; /* Matches the card's border radius */
-  width: 100%; /* Ensure container width is 100% */
 }
 
 .image-container img {
-  margin: 0; /* Removes any margin to ensure proper containment */
-  max-width: 100%; /* Makes the image responsive */
+  max-width: 100%;
   height: auto;
-  display: block; /* Ensures the image stays within the container */
-  border-radius: 8px; /* Matches container's border radius */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds shadow to the image */
-  object-fit: contain; /* Ensures the image scales properly */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Content Styling */
@@ -37,53 +49,42 @@
   background-color: #c9e1ff;
   padding: 20px;
   border-radius: 8px;
-  box-sizing: border-box;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Adding shadow */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  line-height: 1.5; /* Improved line height for readability */
 }
 
+/* Headings */
 .content h1 {
   margin-bottom: 20px;
   color: #e94560;
   font-size: 2rem;
+  text-align: center;
+  line-height: 1.4; /* Ensures headings have proper spacing */
 }
 
-.content p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-}
-
-/* Responsive Adjustments */
+/* Mobile-Friendly Adjustments */
 @media (max-width: 768px) {
   .blog-post {
-    max-width: 90%; /* Reduce overall width for better fit */
+    width: 80%; /* Use full width for better responsiveness */
+    padding: 15px;
   }
 
   .content h1 {
-    font-size: 1.8rem;
-  }
-
-  .content p {
-    font-size: 1rem;
-    line-height: 1.5;
+    font-size: 1.6rem; /* Slightly smaller font size for tablet view */
   }
 }
 
 @media (max-width: 480px) {
   .blog-post {
-    max-width: 95%; /* Further adjustment for very small screens */
-    padding: 10px; /* Reduce padding */
+    width: 60%; /* Full width on smaller screens */
+    padding: 10px;
   }
 
   .content h1 {
-    font-size: 1.5rem;
+    font-size: 1.2rem; /* Decreased font size for mobile view */
   }
 
-  .content p {
-    font-size: 0.9rem;
-    line-height: 1.4;
-  }
-
-  .image-container img {
-    border-radius: 6px; /* Match smaller design aesthetic */
+  .content {
+    padding: 12px; /* Reduced padding to give more space */
   }
 }
