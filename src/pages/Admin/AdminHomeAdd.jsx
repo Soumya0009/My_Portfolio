@@ -74,7 +74,7 @@ const AdminHomeAdd = () => {
       return;
     }
 
-    post["userId"] = user.id || 1;
+    post["userId"] = user.id || 1 || 0;
 
     try {
       let BlogId = null;

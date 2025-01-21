@@ -19,30 +19,30 @@ export const doLogout = (next) => {
 };
 
 // Get current user details
-// export const getCurrentUserDetails = () => {
-//   if (isLogedIn()) {
-//     // Call isLogedIn correctly to check login status
-//     return JSON.parse(localStorage.getItem("data")); // Retrieve and return user data
-//   } else {
-//     return undefined; // Return false if not logged in
-//   }
-// };
-
 export const getCurrentUserDetails = () => {
-  const userStr = localStorage.getItem("user");
-
-  if (userStr) {
-    try {
-      const user = JSON.parse(userStr);
-      // console.log("User details from localStorage:", user);
-      return user;
-    } catch (error) {
-      console.error("Error parsing user data from localStorage:", error);
-    }
+  if (isLogedIn()) {
+    // Call isLogedIn correctly to check login status
+    return JSON.parse(localStorage.getItem("data")); // Retrieve and return user data
+  } else {
+    return undefined; // Return false if not logged in
   }
-
-  return null;
 };
+
+// export const getCurrentUserDetails = () => {
+//   const userStr = localStorage.getItem("user");
+
+//   if (userStr) {
+//     try {
+//       const user = JSON.parse(userStr);
+//       // console.log("User details from localStorage:", user);
+//       return user;
+//     } catch (error) {
+//       console.error("Error parsing user data from localStorage:", error);
+//     }
+//   }
+
+//   return null;
+// };
 
 // Get token
 export const getToken = () => {
